@@ -1,0 +1,284 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music Recommendation System</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #0d1117;
+      }
+      .container {
+        width: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        padding: 50px 50px;
+        transform: translate(-50%, -50%);
+        background: rgba(255, 255, 255, 0.144);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.233);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2.6px);
+        border: 1px solid rgba(175, 175, 175, 0.367);
+        font-weight: bold;
+        color: rgb(255, 255, 255);
+        font-family: "Lato", sans-serif;
+        letter-spacing: 2px;
+        border-radius: 10px;
+        padding-left: 40px;
+      }
+      h1 {
+        text-align: center;
+        color: #ffffff;
+        margin-bottom: 20px;
+      }
+      form {
+        text-align: center;
+      }
+      .opt{
+        background: #0000001c;
+      }
+      label {
+        font-weight: bold;
+      }
+      select {
+        width: 100%;
+        padding: 10px;
+        margin: 50px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      .area {
+        background: #0d1117;
+        background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+        width: 100%;
+        height: 100vh;
+        position: absolute;
+        z-index: -1;
+      }
+
+      .circles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .circles li {
+        position: absolute;
+        display: block;
+        list-style: none;
+        width: 20px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        animation: animate 25s linear infinite;
+        bottom: -150px;
+      }
+
+      .circles li:nth-child(1) {
+        left: 25%;
+        width: 80px;
+        height: 80px;
+        animation-delay: 0s;
+        background: #ff7f7f;
+        filter: blur(40px);
+      }
+
+      .circles li:nth-child(2) {
+        left: 10%;
+        width: 50px;
+        height: 50px;
+        animation-delay: 2s;
+        animation-duration: 12s;
+        background: #7fa5ff;
+        filter: blur(40px);
+      }
+
+      .circles li:nth-child(3) {
+        left: 70%;
+        width: 40px;
+        height: 40px;
+        animation-delay: 4s;
+        background: #63ff97;
+        filter: blur(40px);
+      }
+
+      .circles li:nth-child(4) {
+        left: 40%;
+        width: 60px;
+        height: 60px;
+        animation-delay: 0s;
+        animation-duration: 18s;
+        background: #ff51f3;
+        filter: blur(20px);
+      }
+
+      .circles li:nth-child(5) {
+        left: 65%;
+        width: 60px;
+        height: 60px;
+        animation-delay: 0s;
+        background: #92ff38;
+        filter: blur(50px);
+      }
+
+      .circles li:nth-child(6) {
+        left: 75%;
+        width: 110px;
+        height: 110px;
+        animation-delay: 3s;
+        background: #34c2ff;
+        filter: blur(60px);
+      }
+
+      .circles li:nth-child(7) {
+        left: 35%;
+        width: 150px;
+        height: 150px;
+        animation-delay: 7s;
+        background: #b48fff;
+        filter: blur(70px);
+      }
+
+      .circles li:nth-child(8) {
+        left: 50%;
+        width: 50px;
+        height: 50px;
+        animation-delay: 15s;
+        animation-duration: 45s;
+        background: #aeff5e;
+        filter: blur(20px);
+      }
+
+      .circles li:nth-child(9) {
+        left: 20%;
+        width: 70px;
+        height: 70px;
+        animation-delay: 2s;
+        animation-duration: 35s;
+        background: #ff5182b4;
+        filter: blur(30px);
+      }
+
+      .circles li:nth-child(10) {
+        left: 85%;
+        width: 120px;
+        height: 120px;
+        animation-delay: 0s;
+        animation-duration: 11s;
+        background: #ff9b44;
+        filter: blur(60px);
+      }
+      @keyframes animate {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
+          border-radius: 0;
+        }
+
+        100% {
+          transform: translateY(-1000px) rotate(720deg);
+          opacity: 0;
+          border-radius: 50%;
+        }
+      }
+      .btn {
+        border: none;
+        border-radius: 3em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 25px 40px;
+        gap: 12px;
+        background: #1c1a1c;
+        cursor: pointer;
+        transition: all 450ms ease-in-out;
+        margin: 0 auto;
+      }
+
+      .sparkle {
+        fill: #aaaaaa;
+        transition: all 800ms ease;
+      }
+
+      .text {
+        font-weight: 600;
+        color: #aaaaaa;
+        font-size: medium;
+      }
+
+      .btn:hover {
+        background: linear-gradient(to right, #cd7cf3, #ea3f7e);
+        box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.4),
+          inset 0px -4px 0px 0px rgba(0, 0, 0, 0.2),
+          0px 0px 0px 4px rgba(255, 255, 255, 0.2), 0px 0px 180px 0px #ff17ff;
+        transform: translateY(-2px);
+      }
+
+      .btn:hover .text {
+        color: white;
+      }
+
+      .btn:hover .sparkle {
+        fill: white;
+        transform: scale(1.2);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Music Recommendation System</h1>
+      <form action="/recommendations" method="post">
+        <label for="music_title">Select a Music Title:</label>
+        <select id="music_title" name="music_title" required>
+          <option value="" disabled selected>Select a Music Title</option>
+          {% for music_title in music_titles %}
+          <option class="opt" value="{{ music_title }}">{{ music_title }}</option>
+          {% endfor %}</select
+        ><br /><br />
+        <button class="btn" type="submit">
+          <svg
+            height="24"
+            width="24"
+            fill="#FFFFFF"
+            viewBox="0 0 24 24"
+            data-name="Layer 1"
+            id="Layer_1"
+            class="sparkle"
+          >
+            <path
+              d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z"
+            ></path>
+          </svg>
+
+          <span class="text">Get Recommendations</span>
+        </button>
+      </form>
+    </div>
+    <div class="area">
+      <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+  </body>
+</html>
